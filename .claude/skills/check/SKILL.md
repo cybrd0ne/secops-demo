@@ -1,4 +1,4 @@
---
+---
 name: check
 description: Run lint and tests, summarise failures by file, propose the smallest fix.
 ---

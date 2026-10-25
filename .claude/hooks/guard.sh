@@ -1,5 +1,5 @@
-# .claude/hooks/guard.sh (chmod +x)
 #!/bin/bash
+# .claude/hooks/guard.sh
 file=$(jq -r '.tool_input.file_path // empty')
 case "$file" in
 *.env|*.env.*|*/secrets/*)
