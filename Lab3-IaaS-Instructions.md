@@ -149,12 +149,15 @@ history. The private key that can open it stays in `~/.config/sops/age/keys.txt`
 
 ### 4. Decrypt at deploy time with `make`
 
-Add the decrypted file to `.gitignore` **before** you run anything, together with the
-certificate folder from Part C:
+Before you run anything, confirm that git ignores the decrypted file and the certificate
+folder from Part C. The repository's `.gitignore` already covers both:
 
 ```bash
-printf '.env.secrets\ncerts/\n' >> .gitignore
+git check-ignore -v .env.secrets certs/frontdoor.key
 ```
+
+Each path must print the `.gitignore` rule that matches it. If one prints nothing, add it
+to `.gitignore` before you continue.
 
 Create the `Makefile`. Recipe lines must start with a tab, not spaces.
 
