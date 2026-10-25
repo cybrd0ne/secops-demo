@@ -159,13 +159,12 @@ git check-ignore -v .env.secrets certs/frontdoor.key
 Each path must print the `.gitignore` rule that matches it. If one prints nothing, add it
 to `.gitignore` before you continue.
 
-Create the `Makefile`. Recipe lines must start with a tab, not spaces.
+The repository's `Makefile` already has the deploy targets. Read them before you run
+them:
 
 ```makefile
-.PHONY: up down test lint secrets
-
 secrets:
-	sops -d secrets/opensearch.enc.yaml | sed 's/: /=/' > .env.secrets
+	umask 077 && sops -d secrets/opensearch.enc.yaml | sed 's/: /=/' > .env.secrets
 
 up: secrets
 	docker compose --env-file .env --env-file .env.secrets up -d
@@ -175,8 +174,9 @@ down:
 ```
 
 `make secrets` turns the YAML line into `OPENSEARCH_INITIAL_ADMIN_PASSWORD=...`, which
-compose reads as a second env file. The plaintext exists only while the stack runs, and
-`make down` deletes it.
+compose reads as a second env file. `umask 077` makes the file readable by you alone. The
+plaintext exists only while the stack runs, and `make down` deletes it. If you edit the
+`Makefile`, recipe lines must start with a tab, not spaces.
 
 ### 5. Prove the deploy is repeatable
 
