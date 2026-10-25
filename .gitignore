@@ -1,0 +1,21 @@
+# Environment files and decrypted secrets (R-02)
+.env
+.env.*
+!.env.example
+
+# Private keys and lab PKI material
+keys.txt
+*.key
+certs/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Claude Code per-user settings
+.claude/settings.local.json
